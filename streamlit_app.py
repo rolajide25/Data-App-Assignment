@@ -33,7 +33,7 @@ if not filtered_df.empty:
     plt.title('Sales by Sub-Category')
     plt.xlabel('Order Date')
     plt.ylabel('Sales')
-    plt.legend(title='Sub_Category')
+    plt.legend(title='Sub-Category')
     plt.xticks(rotation=45)
     plt.tight_layout()
 
@@ -51,4 +51,5 @@ if not filtered_df.empty:
     st.metric("Profit Margin (%)", f"{profit_margin:.2f}%")
 else:
     st.write("Please select at least one Sub_Category to view the sales data.")
+
 
