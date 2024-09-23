@@ -15,8 +15,8 @@ filtered_df = df[df['Category'] == selected_category]
 
 # (2) Add a multi-select for Sub-Category in the selected Category
 selected_subcategories = st.multiselect(
-    "Select Sub-Category", 
-    filtered_df['Sub-Category'].unique()
+    "Select Sub_Category", 
+    filtered_df['Sub_Category'].unique()
 )
 
 # Filter dataframe further based on selected sub-categories
@@ -49,7 +49,7 @@ if not filtered_df.empty:
     profit_margin_delta = overall_profit_margin - overall_avg_profit_margin
     
     # Display metrics
-    st.write("### Metrics for Selected Sub-Categories")
+    st.write("### Metrics for Selected Sub_Categories")
     st.metric("Total Sales", f"${total_sales:,.2f}")
     st.metric("Total Profit", f"${total_profit:,.2f}")
     st.metric("Overall Profit Margin (%)", f"{overall_profit_margin:.2f}%", delta=f"{profit_margin_delta:.2f}%")
