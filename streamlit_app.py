@@ -7,17 +7,6 @@ st.write("### Input Data and Examples")
 df = pd.read_csv("Superstore_Sales_utf8.csv", parse_dates=['Order_Date'])
 st.dataframe(df)
 
-# Bar chart for overall sales by category
-st.bar_chart(df.groupby("Category", as_index=False).sum(), x="Category", y="Sales", color="#04f")
-
-# Aggregating by time for overall sales
-df.set_index('Order_Date', inplace=True)
-sales_by_month = df.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
-st.dataframe(sales_by_month)
-st.line_chart(sales_by_month, y="Sales")
-
-# Your additions
-st.write("## Your Additions")
 
 # (1) Dropdown for Category selection
 category = st.selectbox("Select Category", df['Category'].unique())
