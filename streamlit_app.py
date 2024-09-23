@@ -37,7 +37,10 @@ filtered_data = df[(df['Category'] == category) & (df['Sub_Category'].isin(sub_c
 
 # (3) Line chart for selected items in (2)
 if not filtered_data.empty:
+    # Grouping the filtered data by month and summing sales
     sales_by_month_filtered = filtered_data.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
+
+    # Display the line chart of sales for the selected items
     st.line_chart(sales_by_month_filtered, y="Sales")
 
     # (4) Metrics: total sales, total profit, and overall profit margin for the selected items
@@ -55,4 +58,4 @@ if not filtered_data.empty:
     st.metric("Total Profit", f"${total_profit:,.2f}")
     st.metric("Profit Margin (%)", f"{profit_margin:.2f}%", delta=f"{profit_margin - overall_profit_margin:.2f}%")
 else:
-    st.write("Please select at least one Sub-Category to see the results.")
+    st.write("Please select at least one Sub_Category to see the results.")
