@@ -9,6 +9,8 @@ st.write("### Input Data and Examples")
 df = pd.read_csv("Superstore_Sales_utf8.csv", parse_dates=True)
 st.dataframe(df)
 
+selected_categry = st.selectbox("Select a Category", df['Category'].unique())
+
 # Multi-select for Sub-Category based on the selected Category
 filtered_df = df[df['Category'] == selected_category]
 selected_subcategories = st.multiselect("Select Sub_Category", filtered_df['Sub_Category'].unique())
