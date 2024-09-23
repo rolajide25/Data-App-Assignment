@@ -54,3 +54,4 @@ if not filtered_df.empty:
     st.metric("Total Profit", f"${total_profit:,.2f}")
     st.metric("Overall Profit Margin (%)", f"{overall_profit_margin:.2f}%", delta=f"{profit_margin_delta:.2f}%")
 
+
