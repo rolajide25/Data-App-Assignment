@@ -24,10 +24,10 @@ category = st.selectbox("Select Category", df['Category'].unique())
 
 # (2) Multi-select for Sub_Category based on selected Category
 sub_category_options = df[df['Category'] == category]['Sub_Category'].unique()
-sub_categories = st.multiselect("Select Sub_Category", sub_category_options)
+sub_categories = st.multiselect("Select Sub_Category", Sub_Category_options)
 
 # Filter data based on selections
-filtered_data = df[(df['Category'] == category) & (df['Sub_Category'].isin(sub_categories))]
+filtered_data = df[(df['Category'] == category) & (df['Sub_Category'].isin(Sub_Categories))]
 
 # (3) Show a line chart of sales for the selected items in Sub_Category
 if not filtered_data.empty:
