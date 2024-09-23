@@ -7,35 +7,37 @@ st.write("### Input Data and Examples")
 df = pd.read_csv("Superstore_Sales_utf8.csv", parse_dates=['Order_Date'])
 st.dataframe(df)
 
-
-# (1) Dropdown for Category selection
+# Dropdown for Category selection
 category = st.selectbox("Select Category", df['Category'].unique())
 
-# (2) Multi-select for Sub_Category based on selected Category
-sub_category_options = df[df['Category'] == category]['Sub_Category'].unique()
-sub_categories = st.multiselect("Select Sub_Category", sub_category_options)
+# Multi-select for Sub-Category based on the selected Category
+filtered_df = df[df['Category'] == selected_category]
+selected_subcategories = st.multiselect("Select Sub_Category", filtered_df['Sub_Category'].unique())
 
-# Filter data based on selections
-filtered_data = df[(df['Category'] == category) & (df['Sub_Category'].isin(sub_categories))]
+# Filter the dataframe by selected sub-categories
+filtered_df = filtered_df[filtered_df['Sub_Category'].isin(selected_subcategories)]
 
-# (3) Show a line chart of sales for the selected items in Sub_Category
-if not filtered_data.empty:
-    sales_by_month_filtered = filtered_data['Sales'].resample('M').sum()
-    st.line_chart(sales_by_month_filtered)
+# Sort by Order_Date to ensure the line chart is in ascending order by date
+filtered_df = filtered_df.sort_values(by='Order_Date')
 
-    # (4) Show three metrics for the selected items in Sub_Category
-    total_sales = filtered_data['Sales'].sum()
-    total_profit = filtered_data['Profit'].sum()
-    profit_margin = (total_profit / total_sales) * 100 if total_sales > 0 else 0
+# Create a line chart for Sales with different colors for each Sub-Category
+plt.figure(figsize=(10, 6))
+for subcategory in selected_subcategories:
+    subcategory_data = filtered_df[filtered_df['Sub_Category'] == subcategory]
+    plt.plot(subcategory_data['Order_Date'], subcategory_data['Sales'], label=subcategory)
 
-    # Calculate the overall average profit margin
-    overall_sales = df['Sales'].sum()
-    overall_profit = df['Profit'].sum()
-    overall_profit_margin = (overall_profit / overall_sales) * 100 if overall_sales > 0 else 0
+plt.title('Sales by Sub-Category')
+plt.xlabel('Order Date')
+plt.ylabel('Sales')
+plt.legend(title='Sub-Category')
+plt.xticks(rotation=45)
+plt.tight_layout()
 
-    # (5) Metrics display with delta for profit margin
-    st.metric("Total Sales", f"${total_sales:,.2f}")
-    st.metric("Total Profit", f"${total_profit:,.2f}")
-    st.metric("Profit Margin (%)", f"{profit_margin:.2f}%", delta=f"{profit_margin - overall_profit_margin:.2f}%")
-else:
-    st.write("Please select at least one Sub_Category to see the results.")
+# Show the plot in Streamlit
+st.pyplot(plt)
+
+# Calculate metrics for selected items
+total_sales = filtered_df['Sales'].sum()
+total_profit = filtered_df['Profit'].sum()
+profit_margin = (total_profit / total_sales) * 10
+
