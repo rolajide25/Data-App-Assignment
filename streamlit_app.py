@@ -24,6 +24,7 @@ filtered_df = filtered_df.sort_values(by='Order_Date')
 # Create a line chart for Sales with different colors for each Sub-Category
 if not filtered_df.empty:
     plt.figure(figsize=(10, 6))
+    
     for subcategory in selected_subcategories:
         subcategory_data = filtered_df[filtered_df['Sub_Category'] == subcategory]
         # Group by date to aggregate sales
@@ -36,6 +37,10 @@ if not filtered_df.empty:
     plt.legend(title='Sub-Category')
     plt.xticks(rotation=45)
     plt.tight_layout()
+
+    # Set Y-axis ticks for better clarity
+    y_ticks = range(0, int(filtered_df['Sales'].max()) + 5000, 5000)  # Adjust the step as needed
+    plt.yticks(y_ticks)
 
     # Show the plot in Streamlit
     st.pyplot(plt)
@@ -51,5 +56,3 @@ if not filtered_df.empty:
     st.metric("Profit Margin (%)", f"{profit_margin:.2f}%")
 else:
     st.write("Please select at least one Sub_Category to view the sales data.")
-
-
