@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Title of the app
-st.title("Data App Assignment, on Oct 7th")
+st.title("Ruth Olajide's Data App Assignment, on Oct 7th")
 
 # Load the dataset
 df = pd.read_csv("Superstore_Sales_utf8.csv", parse_dates=['Order_Date'])
