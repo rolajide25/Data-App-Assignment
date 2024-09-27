@@ -39,7 +39,8 @@ if not filtered_df.empty:
     plt.tight_layout()
 
     # Set Y-axis ticks for better clarity
-    y_ticks = range(0, int(filtered_df['Sales'].max()) + 5000, 5000)  # Adjust the step as needed
+    max_sales = int(filtered_df['Sales'].max())
+    y_ticks = range(0, max_sales + 10000, 10000)  # Adjust step size as needed
     plt.yticks(y_ticks)
 
     # Show the plot in Streamlit
