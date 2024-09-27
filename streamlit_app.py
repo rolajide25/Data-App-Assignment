@@ -23,19 +23,20 @@ filtered_df = filtered_df.sort_values(by='Order_Date')
 
 # Create a line chart for Sales with different colors for each Sub-Category
 if not filtered_df.empty:
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(12, 6))  # Increase figure size for clarity
     
     for subcategory in selected_subcategories:
         subcategory_data = filtered_df[filtered_df['Sub_Category'] == subcategory]
         # Group by date to aggregate sales
         sales_by_date = subcategory_data.groupby('Order_Date')['Sales'].sum()
-        plt.plot(sales_by_date.index, sales_by_date.values, label=subcategory)
+        plt.plot(sales_by_date.index, sales_by_date.values, label=subcategory, marker='o')  # Add markers for clarity
 
-    plt.title('Sales by Sub-Category')
-    plt.xlabel('Order Date')
-    plt.ylabel('Sales')
-    plt.legend(title='Sub-Category')
-    plt.xticks(rotation=45)
+    plt.title('Sales by Sub-Category', fontsize=16)
+    plt.xlabel('Order Date', fontsize=14)
+    plt.ylabel('Sales ($)', fontsize=14)
+    plt.legend(title='Sub-Category', fontsize=12)
+    plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+    plt.grid(True)  # Add grid for easier reading
     plt.tight_layout()
 
     # Set Y-axis ticks for better clarity
