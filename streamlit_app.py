@@ -17,7 +17,7 @@ selected_category = st.selectbox("Select a Category", df['Category'].unique())
 filtered_df = df[df['Category'] == selected_category]
 
 # Step (2): Multi-select for Sub-Category based on the selected Category
-selected_subcategories = st.multiselect("Select Sub-Category", filtered_df['Sub_Category'].unique())
+selected_subcategories = st.multiselect("Select Sub_Category", filtered_df['Sub_Category'].unique())
 
 # Show metrics and line chart if subcategories are selected
 if selected_subcategories:
@@ -32,10 +32,10 @@ if selected_subcategories:
         sales_by_date = subcategory_data.resample('M', on='Order_Date')['Sales'].sum()
         plt.plot(sales_by_date.index, sales_by_date.values, label=subcategory, marker='o')
 
-    plt.title('Sales by Sub-Category', fontsize=16)
+    plt.title('Sales by Sub_Category', fontsize=16)
     plt.xlabel('Order Date', fontsize=14)
     plt.ylabel('Sales ($)', fontsize=14)
-    plt.legend(title='Sub-Category', fontsize=12)
+    plt.legend(title='Sub_Category', fontsize=12)
     plt.xticks(rotation=45)
     plt.grid(True)
     plt.tight_layout()
